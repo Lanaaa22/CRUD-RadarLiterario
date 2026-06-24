@@ -28,7 +28,7 @@ def editar_usuario(c, email_atual, nome_atual, data_atual):
 
 def consultar(c):
     cursor = c.cursor()
-    cursor.execute("SELECT NOME, E_MAIL, DATA_NASCIMENTO FROM USUARIO WHERE TIPO = 'leitor'")
+    cursor.execute("SELECT NOME, E_MAIL, DATA_NASCIMENTO FROM USUARIO WHERE TIPO = 'leitor' ORDER BY NOME")
     usuarios = cursor.fetchall()
     
     if not usuarios:
