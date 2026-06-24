@@ -1,3 +1,4 @@
+from datetime import date
 import streamlit as st
 import funcoes as f
 import psycopg2
@@ -27,8 +28,18 @@ def interface(c):
         
         nome = st.text_input("Nome: ")
         email = st.text_input("E-mail: ")
-        data_nasc = st.date_input("Data de Nascimento: ")
-        sexo = st.text_input("Sexo: ")
+        data_nasc = st.date_input(
+            "Data de Nascimento: ",
+            min_value=date(1900,1,1),
+            max_value=date.today(),
+            format="DD/MM/YYYY"
+        )
+        sexo = st.selectbox(
+            "Sexo: ",
+            ["Masculino", "Feminino", "Outro"],
+            index=None,
+            placeholder="Selecione o seu sexo..."
+            )
         senha = st.text_input("Senha: ", type="password")
 
         # Botão obrigatório para submeter o formulário
@@ -36,7 +47,7 @@ def interface(c):
 
         if botao_cadastrar:
             if not email or not senha or not data_nasc or not nome or not sexo:
-                st.warning("Tente novamente! algum dado não foi escrito")
+                st.warning("Tente novamente! Algum dado não foi escrito.")
             else: 
                 inserirUsuario(c, nome, data_nasc, email, sexo)
                 st.success("Cadastro feito com sucesso!")
