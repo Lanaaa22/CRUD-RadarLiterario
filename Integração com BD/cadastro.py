@@ -22,7 +22,6 @@ def inserirUsuario(c, nome, data_nascimento, e_mail, sexo):
     cursor.close()
 
 def interface(c):
-    # Cria o formulário e ativa a limpeza dos campos após o envio bem-sucedido
     with st.form("form_cadastro", clear_on_submit=True):
         st.write("Cadastro de Usuário")
         
@@ -36,13 +35,12 @@ def interface(c):
         )
         sexo = st.selectbox(
             "Sexo: ",
-            ["Masculino", "Feminino", "Outro"],
+            ["Homem", "Mulher", "Outro"],
             index=None,
             placeholder="Selecione o seu sexo..."
             )
         senha = st.text_input("Senha: ", type="password")
 
-        # Botão obrigatório para submeter o formulário
         botao_cadastrar = st.form_submit_button("Cadastrar")
 
         if botao_cadastrar:
@@ -52,7 +50,6 @@ def interface(c):
                 inserirUsuario(c, nome, data_nasc, email, sexo)
                 st.success("Cadastro feito com sucesso!")
 
-    # O botão de navegação deve ficar FORA do formulário
     if st.button("Consultar Usuários Cadastrados"):
         st.switch_page("pages/consultar.py")
 
